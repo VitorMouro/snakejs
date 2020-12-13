@@ -1,0 +1,25 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#content {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
+
+#myCanvas {
+    background-color: black;
+    position: absolute;
+    padding: 0;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
