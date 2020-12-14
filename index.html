@@ -9,6 +9,28 @@
 <body>
     <div id="content">
         <canvas id="myCanvas">You device does not support the canvas element</canvas>
+        <div id="myModal">
+            <label for="">Rows: </label>
+            <input type="number" value="25" id="rows" onchange="setGridX(this.value)">
+            <br>
+            <br>
+            <label for="">Columns: </label>
+            <input type="number" value="25" id="columns" onchange="setGridY(this.value)">
+            <br>
+            <br>
+            <label for="">Speed: </label>
+            <input type="number" value="300" id="speed" onchange="setSpeed(this.value)">
+            <br>
+            <br>
+            <label for="">Tailpieces per fruit: </label>
+            <input type="number" value="1" id="tails" onchange="setTailpieces(this.value)">
+            <br>
+            <br>
+            <input type="checkbox" checked id="walls" onchange="setWalls()">Walls
+            <br>
+            <br>
+            <button type="button" id="okButton" onclick="hideModal()">Ok</button>
+        </div>
     </div>
     <script src="js/index.js"></script>
 </body>

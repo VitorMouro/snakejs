@@ -99,14 +99,39 @@ function handleKeyUp(e) {
     }
 }
 
-const gridSize = { x: 20, y: 20 };
+let gridSize = { x: 25, y: 25 };
+let tailpiecesPerFruit = 1;
 let hasWalls = true;
+let speed = 300;
 var cellSize;
-var snake = {
-    position: { x: Math.round(gridSize.x / 2), y: Math.round(gridSize.y / 2) },
-    tail: Array()
-}
+var snake;
 var fruit;
+
+function setTailpieces(n){
+    tailpiecesPerFruit = Number.parseInt(n);
+}
+
+function setGridX(n){
+    gridSize.x = Number.parseInt(n);
+}
+
+function setGridY(n){
+    gridSize.y = Number.parseInt(n);
+}
+
+function setWalls(n){
+    hasWalls = !hasWalls;
+}
+
+function setSpeed(n){
+    speed = Number.parseInt(n);
+}
+
+function hideModal(){
+    let modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    start();
+}
 
 function drawGrid() {
     for (let i = 0; i < gridSize.x + 1; i++) {
@@ -124,15 +149,15 @@ function drawGrid() {
         ctx.stroke();
     }
     if (hasWalls) {
-        for (let i = 0; i < gridSize.x + 1; i++) {
+        for (let i = 0; i < gridSize.x; i++) {
             ctx.fillStyle = "rgb(50, 50, 50)";
             ctx.fillRect(i * cellSize, 0, cellSize, cellSize);
             ctx.fillRect(i * cellSize, (gridSize.y - 1) * cellSize, cellSize, cellSize);
         }
-        for (let i = 0; i < gridSize.y + 1; i++) {
+        for (let i = 0; i < gridSize.y; i++) {
             ctx.fillStyle = "rgb(50, 50, 50)";
             ctx.fillRect(0, i * cellSize, cellSize, cellSize);
-            ctx.fillRect((gridSize.y - 1) * cellSize, i * cellSize, cellSize, cellSize);
+            ctx.fillRect((gridSize.x - 1) * cellSize, i * cellSize, cellSize, cellSize);
         }
     }
 }
@@ -183,7 +208,7 @@ function snakeMovement() {
         snake.tail[0].position.y = lastHeadPositionY;
     }
     clearInterval(id);
-    id = setInterval(snakeMovement, 300);
+    id = setInterval(snakeMovement, speed);
     gameLogic();
 }
 
@@ -191,7 +216,8 @@ function gameLogic() {
     
     if (snake.position.x == fruit.position.x && snake.position.y == fruit.position.y) {
         generateFruit();
-        snake.tail.push({ position: { x: -1, y: -1 } })
+        for(let i = 0; i < tailpiecesPerFruit; i++)
+            snake.tail.push({ position: { x: -1, y: -1 } })
     }
     snake.tail.forEach((tailpiece) => {
         if (snake.position.x == tailpiece.position.x && snake.position.y == tailpiece.position.y)
@@ -233,6 +259,14 @@ function main() {
     requestAnimationFrame(main);
 }
 
-generateFruit();
-let id = setInterval(snakeMovement, 300);
-requestAnimationFrame(main);
+let id;
+function start(){
+    handleWindowResize();
+    snake = {
+        position: { x: Math.round(gridSize.x / 2), y: Math.round(gridSize.y / 2) },
+        tail: Array()
+    }
+    generateFruit();
+    id = setInterval(snakeMovement, speed);
+    requestAnimationFrame(main);
+}

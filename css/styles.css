@@ -23,3 +23,19 @@ html, body {
     right: 0;
     left: 0;
 }
+
+#myModal {
+    background-color: black;
+    color: white;
+    position: absolute;
+    padding: 10%;
+    margin: auto;
+    display: block;
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    right: 20%;
+    left: 20%;
+    text-align: center;
+    border: 1px white solid;
+}
